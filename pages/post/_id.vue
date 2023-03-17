@@ -131,6 +131,10 @@ export default {
         this.$nuxt.error({ statusCode: 404 })
       }
     }
+    console.log(
+      'this.post',
+      this.post.otherByline.split('、').map((d) => ({ name: d }))
+    )
   },
   head() {
     const {

@@ -247,10 +247,19 @@ export default {
         )
         .map((key) => {
           return key === 'otherByline' && typeof this.post[key] === 'string'
-            ? {
-                key,
-                data: this.post[key].split('、').map((d) => ({ name: d })),
-              }
+            ? this.post?.[key].startsWith('*')
+              ? {
+                  key,
+                  data: this.post[key]
+                    .slice(1)
+                    .split('／')
+                    .map((d) => ({ name: d })),
+                  special: true,
+                }
+              : {
+                  key,
+                  data: this.post[key].split('、').map((d) => ({ name: d })),
+                }
             : {
                 key,
                 data: this.post[key],

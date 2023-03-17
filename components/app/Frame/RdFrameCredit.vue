@@ -3,10 +3,19 @@
     <div class="credit-list">
       <ul>
         <li v-for="item in formatedList" :key="item.key">
-          <div class="title">{{ item.key }}：</div>
-          <span v-for="(person, i) in item.data" :key="i">
-            {{ i === 0 ? '' : '、' }}{{ person.name }}
-          </span>
+          <div v-if="!item.special" class="title">
+            {{ item.key }}：<span v-for="(person, i) in item.data" :key="i">
+              {{ i === 0 ? '' : '、' }}{{ person.name }}
+            </span>
+          </div>
+          <div v-else>
+            <div class="title">
+              <div>{{ item.key }}：</div>
+              <div v-for="(person, i) in item.data" :key="i">
+                {{ person.name }}
+              </div>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
@@ -70,6 +79,7 @@ export default {
       return this.credits?.map((item) => ({
         key: CONTACT_MAPPING[item.key],
         data: item.data,
+        special: item.special,
       }))
     },
   },
